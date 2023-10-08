@@ -11,25 +11,33 @@
 	<link rel="stylesheet" href="../static/styles/6-filters.css?{{ cache_id }}">
 	<link rel="stylesheet" href="../static/styles/8-places.css?{{ cache_id }}">
 	<link rel="stylesheet" href="../static/styles/font-awesome.css?{{ cache_id }}">
+	<SCRIPT src="https://code.jquery.com/jquery-3.2.1.min.js"></SCRIPT>
+	<SCRIPT src="{{ url_for('static', filename='scripts/4-hbnb.js') + '?' + cache_id }}"></SCRIPT>
 </head>
 
 <body>
 
+	<header>
+		<div id="api_status" class="available">
+		</div>
+	</header>
+
 	<main>
 		<div class="container">
-			<section class="filters">
 
+			<section class="filters">
+]
 				<div class="locations">
 					<h3>States</h3>
 					<h4>&nbsp;</h4>
 					<ul class="popover">
 						{% for state in states|dictsort %}
-						<H2>{{ state[0] }}</H2>
-						<UL>
+						<h2>{{ state[0] }}</h2>
+						<ul>
 							{% for city in state[1].cities|sort(attribute='name') %}
-							<LI>{{ city.name }}</LI>
+							<li>{{ city.name }}</li>
 							{% endfor %}
-						</UL>
+						</ul>
 						{% endfor %}
 					</ul>
 				</div>
@@ -39,61 +47,23 @@
 					<h4>&nbsp;</h4>
 					<ul class="popover">
 						{% for amenity in amens|sort(attribute='name') %}
-						<LI>{{ amenity.name }}</LI>
+						<li>
+							<input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}">
+							{{ amenity.name }}
+							</input>
+						</li>
 						{% endfor %}
 					</ul>
 				</div>
 
 				<button>Search</button>
-
 			</section>
 
 			<section class="places">
 				<h1>Places</h1>
-				{% for place in places|sort(attribute='name') %}
-
-				<article>
-
-					<div class="title">
-						<h2>{{ place.name }}</h2>
-						<div class="price_by_night">
-							{{ place.price_by_night }}
-						</div>
-					</div>
-
-					<div class="information">
-						<div class="max_guest">
-							<i class="fa fa-users fa-3x" aria-hidden="true"></i><br />
-							{{ place.max_guest }} Guests
-						</div>
-
-						<div class="number_rooms">
-							<i class="fa fa-bed fa-3x" aria-hidden="true"></i><br />
-							{{ place.number_rooms }} Bedrooms
-						</div>
-
-						<div class="number_bathrooms">
-							<i class="fa fa-bath fa-3x" aria-hidden="true"></i><br />
-							{{ place.number_bathrooms }} Bathroom
-						</div>
-					</div>
-
-					<div class="user">
-						<strong>Owner: {{ users[place.user_id] }}</strong>
-					</div>
-
-					<div class="description">
-						{{ place.description }}
-					</div>
-
-				</article>
-
-				{% endfor %}
 
 			</section>
-
 		</div>
-
 	</main>
 
 	<footer>
@@ -102,4 +72,4 @@
 
 </body>
 
-</html>
+</html
